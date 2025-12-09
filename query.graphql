@@ -1,0 +1,33 @@
+query GetBrandPagesByCategory($site: String!, $docTypes: String!) {
+  content {
+    contents(navigation: $site, docTypes: $docTypes, qryLimit: 100) {
+      numFound
+      result {
+        id
+        name
+        ... on CMUYBrandPage {
+          grid {
+            rows {
+              placements {
+                items {
+                  ... on CMUYPlaylist {
+                    id
+                    name
+                    chip {
+                      name
+                    }
+                    title
+                    description
+                    ordinamento {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
