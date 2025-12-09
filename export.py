@@ -1,5 +1,6 @@
 import graphql_api
 import html2text
+import sys
 from openpyxl import Workbook
 
 def check_chip(chip):
@@ -35,7 +36,7 @@ def save_to_excel(rows, filename):
 
     headers = list(rows[0].keys())
     ws.append(headers)
-    
+
     for row in rows:
         ws.append([row[h] for h in headers])
 
@@ -43,5 +44,8 @@ def save_to_excel(rows, filename):
     print(f"Saved {len(rows)} rows to {filename}")
 
 if __name__ == '__main__':
-    rows = get_rows('leonardo-en')
-    save_to_excel(rows, 'leonardo_output.xlsx')
+    if len(sys.argv) < 3:
+        print('Specificare site e filename')
+        exit(1)
+    
+    save_to_excel(get_rows(sys.argv[1]), sys.argv[2])
