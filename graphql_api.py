@@ -9,7 +9,7 @@ GRAPHQL_URL = 'http://localhost:41180/graphql'
 with open('query.graphql', 'r') as query_file:
     QUERY = query_file.read()
 
-def get_response(site: str, doctype: str):
+def get_response(site: str):
     session = requests.session()
     page = 0
     num_found = 0
@@ -23,8 +23,7 @@ def get_response(site: str, doctype: str):
         json = {
             'query': QUERY,
             'variables': {
-                'site': site,
-                'docTypes': doctype
+                'site': site
             }
         }
 

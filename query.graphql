@@ -1,23 +1,23 @@
-query GetBrandPagesByCategory($site: String!, $docTypes: String!) {
+query GetBrandPagesByCategory($site: String!) {
   content {
-    contents(navigation: $site, docTypes: $docTypes, qryLimit: 100) {
+    contents(navigation: $site, docTypes: "CMUYBrandPage", qryLimit: 100) {
       numFound
       result {
-        id
-        name
+        id # L1 - cms page id
+        name # L1 - cms page name
         ... on CMUYBrandPage {
           grid {
             rows {
               placements {
                 items {
                   ... on CMUYPlaylist {
-                    id
+                    id # L2 - carousel id
                     name
                     chip {
-                      name
+                      name # L2 - chip
                     }
-                    title
-                    description
+                    title # L2 - carousel title
+                    description # L2 - carousel description
                     ordinamento {
                       name
                     }
