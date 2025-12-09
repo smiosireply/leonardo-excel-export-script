@@ -1,5 +1,6 @@
 import graphql_api
 import html2text
+from openpyxl import Workbook
 
 def check_chip(chip):
     return ', '.join(chip) if chip else None
@@ -24,5 +25,23 @@ def get_rows(site):
         if 'id' in playlist
     ]
 
+def save_to_excel(rows, filename):
+    wb = Workbook()
+    ws = wb.active
+
+    if not rows:
+        print("No data to save.")
+        return
+
+    headers = list(rows[0].keys())
+    ws.append(headers)
+    
+    for row in rows:
+        ws.append([row[h] for h in headers])
+
+    wb.save(filename)
+    print(f"Saved {len(rows)} rows to {filename}")
+
 if __name__ == '__main__':
-    print(get_rows('leonardo-en'))
+    rows = get_rows('leonardo-en')
+    save_to_excel(rows, 'leonardo_output.xlsx')
